@@ -1,0 +1,40 @@
+{
+  "configurations": [
+    {
+      "name": "windows-gcc-x64",
+      "includePath": [
+        "${workspaceFolder}/**"
+      ],
+      "defines": [
+        "_DEBUG",
+        "UNICODE",
+        "_UNICODE"
+      ],
+      "cppStandard": "gnu++23",
+      "compilerPath": "C:\\gcc-14.2.0-no-debug\\bin\\gcc.exe",
+      "cStandard": "${default}",
+      "intelliSenseMode": "windows-gcc-x64"
+    },
+    {
+      "name": "gcc-win64",
+      "includePath": [
+        "c:/Users/skull/Desktop/CompetetiveProgrammming/**"
+      ],
+      "defines": [
+        "_DEBUG",
+        "UNICODE",
+        "_UNICODE"
+      ],
+      "mergeConfigurations": false,
+      "compilerPath": "C:\\gcc-14.2.0-no-debug\\bin\\gcc.exe",
+      "browse": {
+        "path": [
+          "c:/Users/skull/Desktop/CompetetiveProgrammming/**",
+          "${workspaceFolder}"
+        ],
+        "limitSymbolsToIncludedHeaders": true
+      }
+    }
+  ],
+  "version": 4
+}
