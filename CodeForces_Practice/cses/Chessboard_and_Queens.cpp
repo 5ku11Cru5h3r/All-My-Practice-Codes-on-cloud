@@ -64,16 +64,29 @@ void modsub(int &a , int b) {a=((a%MOD)-(b%MOD)+MOD)%MOD;}
 void modmul(int &a , int b) {a=((a%MOD)*(b%MOD))%MOD;}
 // ================================== take ip/op like vector,pairs directly!==================================
 template<typename typC,typename typD> istream &operator>>(istream &cin,pair<typC,typD> &a) { return cin>>a.first>>a.second; }
-template<typename typC> istream &operator>>(istream &cin,vector<typC> &a) { for (auto &x:a)cin>>x%42; return cin; } //changed 
+template<typename typC> istream &operator>>(istream &cin,vector<typC> &a) { for (auto &x:a) cin>>x; return cin; }
 template<typename typC,typename typD> ostream &operator<<(ostream &cout,const pair<typC,typD> &a) { return cout<<a.first<<' '<<a.second; }
 template<typename typC,typename typD> ostream &operator<<(ostream &cout,const vector<pair<typC,typD>> &a) { for (auto &x:a) cout<<x<<'\n'; return cout; }
 template<typename typC> ostream &operator<<(ostream &cout,const vector<typC> &a) { int n=a.size(); if (!n) return cout; cout<<a[0]; for (int i=1; i<n; i++) cout<<' '<<a[i]; return cout; }
 // ===================================END Of the input module ==========================================
 
-
-void solve(){
-    vvb v(8,vb(8));
-    cin>>v;
+int solve(int ans,int r,vs v,vb dia1,vb dia2,vb col){    
+    if(r==8){
+        ans++;
+        return 0;
+    }
+    for (size_t c = 0; c < 8; c++)
+    {
+        /* code */
+        if(v[r][c]=='*' or dia1[r+c] or dia2[c-r+8] or col[c]){
+            continue;
+        }
+        //Occupy the current cell 
+        col[c]=dia1[r+c]=dia2[c-r+8]=1;
+        solve(ans,r+1,v,dia1,dia2,col);
+        col[c]=dia1[r+c]=dia2[c-r+8]=0;
+    }
+    return 0;
 }
 
 int32_t main()
@@ -81,13 +94,12 @@ int32_t main()
  
  ios_base::sync_with_stdio(false);
  cin.tie(NULL);
-
-    int T = 1;
-    cin >> T;
-    while (T--)
-    {
-        solve();
-    }
+vs v;
+cin>>v;
+vb dia1(17),dia2(17),col(9);
+int ans=0,r=0;
+    solve(ans,r,v,dia1,dia2,col);
+    cout<<ans;
     return 0;
 }
 
