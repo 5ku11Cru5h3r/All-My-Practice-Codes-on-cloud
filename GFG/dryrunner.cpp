@@ -1,10 +1,8 @@
 #include "bits/stdc++.h"
 using namespace std;
 
-class Solution {
-public:
-    string multiply(string num1, string num2) {
-       stack<char> s;
-       s.
-    }
-};
+int main(){
+    int x;
+    cin>>x; 
+    cout<< log2(x)<<endl;
+}

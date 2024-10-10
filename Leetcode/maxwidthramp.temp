@@ -1,0 +1,39 @@
+class Solution {
+public:
+    int maxWidthRamp(vector<int>& v) {
+        //Bro still tle
+        ios_base::sync_with_stdio(false);
+        cin.tie(NULL);
+        int f = 0,mx=0;
+        // while(f<v.size()){
+        //     for(int l = v.size() -1 ; l>=0;l--){
+        //         if(v[f]<=v[l]) 
+        //         {
+        //             mx=max(a,l-f);
+        //             break;
+        //         }
+        //     }
+        //     f++;
+        // }
+        // return mx;
+        for(int i=0; i<v.size()-mx; i++){
+            for(int j=v.size()-1; j>mx+i; j--){
+                if(v[i] <= v[j]){
+                    mx = j-i;
+                }
+            }
+        }
+        return mx;
+    }
+    //Memory Limit exceeded
+    // int helper(vector<int> v, int first, int last) {
+    //     if(v[first]<=v[last]){
+    //         return last-first;
+    //     }
+    //     return max(helper(v,first+1,last),helper(v,first,last-1));
+    // }
+    // int maxWidthRamp(vector<int>& v) {
+    //     int first = 0, last = v.size() - 1;
+    //     return helper(v,first,last);
+    // }
+};
