@@ -70,37 +70,40 @@ template<typename typC,typename typD> ostream &operator<<(ostream &cout,const ve
 template<typename typC> ostream &operator<<(ostream &cout,const vector<typC> &a) { int n=a.size(); if (!n) return cout; cout<<a[0]; for (int i=1; i<n; i++) cout<<' '<<a[i]; return cout; }
 // ===================================END Of the input module ==========================================
 
-int solve(int ans,int r,vs v,vb dia1,vb dia2,vb col){    
+void helper(vs v,int ans,int r, vb c,vb d,vb dd)
+{
     if(r==8){
         ans++;
-        return 0;
+        return;
     }
-    for (size_t c = 0; c < 8; c++)
+    for (size_t i = 0; i < 8; i++)
     {
         /* code */
-        if(v[r][c]=='*' or dia1[r+c] or dia2[c-r+8] or col[c]){
-            continue;
-        }
-        //Occupy the current cell 
-        col[c]=dia1[r+c]=dia2[c-r+8]=1;
-        solve(ans,r+1,v,dia1,dia2,col);
-        col[c]=dia1[r+c]=dia2[c-r+8]=0;
+        if(d[r-i+8] or d[r+i] or c[i] or v[r][i]=='*') continue;
+        cout<<ans;
+        d[r-i+8] = d[r+i] = c[i]=1;
+        helper(v,ans,r+1,c,d,dd);
+        d[r-i+8] = d[r+i] = c[i]=0;
     }
-    return 0;
+}
+
+void solve(){
+    int n=1;
+    cin>>n;
+    vs v(8);
+    cin>>v;
+    vb c(20,0),d(20,0),dd(20,0);
+    int ans=0,row=0;
+    helper(v,ans,row,c,d,dd);
+    deb(ans);
 }
 
 int32_t main()
-{
- 
- ios_base::sync_with_stdio(false);
- cin.tie(NULL);
-vs v;
-cin>>v;
-vb dia1(17),dia2(17),col(9);
-int ans=0,r=0;
-    solve(ans,r,v,dia1,dia2,col);
-    cout<<ans;
-    return 0;
+{ 
+ios_base::sync_with_stdio(false);
+cin.tie(NULL);
+solve();
+return 0;
 }
 
     
