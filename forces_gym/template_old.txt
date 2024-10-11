@@ -11,8 +11,8 @@ using namespace std;
 #define  sz(a)      a.size()
 #define  mem(a,b)   memset(a,b,sizeof(a))
 #define  clr(x)     x.clear()
-#define  ff         first
-#define  ss         second
+#define  fff         first
+#define  sss        second
 #define  case(x)    cout << "Case " << x <<": "
 #define all(x)      x.begin(), x.end()
 #define sortall(x)  sort(all(x))
