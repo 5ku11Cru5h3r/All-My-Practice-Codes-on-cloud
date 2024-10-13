@@ -66,14 +66,48 @@ int main()
     {
         cin>>i;
     }
-    
-    for (size_t i = 0; i < n/2; i++)
-    {
-        for (size_t j = 0; j < n/2; j++)
+    /*
+    If you see carefully the outermost rows and column are rotated by 90 degree clockwise
+    . Then the next rows and column are rotated (90+90)degree=180 degree
+    .
+    .
+    .
+    and it continues
+    */
+    //Lets make a lambda funtion rotate
+    auto rotate=[&]()->void{
+        vs c(n,string(n,'?'));
+        for (int i = 1; i <= n; i++)
         {
-           swap(v[i][j],v[j][n+1-i]);
+            for (int j = 1; j <= n; j++)
+            {
+                c[j-1][n-i]=v[i-1][j-1];
+            }
         }
+        v=c;
+    };
+    
+    vector<vs> ans;
+    ans.emplace_back(v);
+    rotate();
+    ans.emplace_back(v);
+    rotate();
+    ans.emplace_back(v);
+    rotate();
+    ans.emplace_back(v);
+    for (size_t i = 1; i <= n/2; i++)
+    {
+        int cnt= i&3; //Its just i%4 to be precise
+        for (size_t j = i; j <= n+1-i; j++)
+        {
+            v[i-1][j-1]=ans[cnt][i-1][j-1];
+            v[j-1][i-1]=ans[cnt][j-1][i-1];
+            v[n-i][j-1]=ans[cnt][n-i][j-1];
+            v[j-1][n-i]=ans[cnt][j-1][n-i];
+        }
+        
     }
+         
     for (auto &&i : v)
     {
         cout<<i<<endl;

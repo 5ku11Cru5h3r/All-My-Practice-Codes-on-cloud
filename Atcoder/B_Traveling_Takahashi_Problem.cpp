@@ -72,9 +72,12 @@ int main()
     long double last_x=0,last_y=0;
     while (n--)
     {
-        long double xx,y;
-        cin>>xx>>y;
+        long double xx,yy;
+        cin>>xx>>yy;
+        x+=sqrt((last_x-xx)*(last_x-xx)+(last_y-yy)*(last_y-yy));
+        last_x=xx;last_y=yy;
     }
+    x+=sqrt((last_x)*(last_x)+(last_y)*(last_y));
     printf("%.20Lf\n",x);
     
     return 0;
