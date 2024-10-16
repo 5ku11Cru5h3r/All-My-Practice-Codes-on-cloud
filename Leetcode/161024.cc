@@ -12,8 +12,6 @@ class Solution
 public:
     string longestDiverseString(int a, int b, int c)
     {
-        ios_base::sync_with_stdio(false);
-        cin.tie(NULL);
         priority_queue<pair<int,char>> pq;
         if(a>0){
             pq.push({a,'a'});
@@ -36,10 +34,25 @@ public:
                 auto pp=pq.top();
                 pq.pop();
                 s.push_back(pp.second);
-                
+                pp.first--;
+                if (pp.first>0)
+                {
+                    /* code */
+                    pq.push(pp);
+                }
+                else
+                {
+                    s+=p.second;
+                    p.first--;
+                    if (p.first>0)
+                    {
+                        /* code */
+                        pq.push(p);
+                    }
+                }
             }
         }
-        
+        return s;
     }
 };
 int main()
