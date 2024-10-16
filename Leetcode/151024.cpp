@@ -3,7 +3,8 @@ using namespace std;
 class Solution {
 public:
     long long minimumSteps(string s) {
-        
+        ios_base::sync_with_stdio(false);
+        cin.tie(NULL);
         int_fast64_t count=0,sum=0;
         bool flag{1};
         for (int i = s.size() - 1,j=i; i >= 0; i--)
@@ -21,7 +22,6 @@ public:
             }
             
         }
-        cout<<sum<<count<<endl;
         return sum;    
     }
 };
