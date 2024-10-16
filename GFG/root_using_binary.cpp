@@ -15,18 +15,19 @@ class Solution {
     int first=1 , last =n/2,mid,ans;
     while(first<last){
         mid=first+(last-first)/2;
-        float sqr=mid*mid;
-        if (n==sqr)
+
+        float sqr=mid*mid;//Binary Search for the element
+        if (n==floor(sqr))
         {
             /* code */
             return mid;
         }
-        else if (n<sqr){
+        if (n<sqr){
             last=mid-1;
+            ans=mid;
         }
         else {
             first= mid+1;
-            ans=mid;
         }
     }
     return ans;
@@ -36,12 +37,13 @@ class Solution {
 
 int main() {
     int t;
-    cin >> t;
+    cin >> t; //100
     while (t--) {
         long long n;
-        cin >> n;
+        cin >> n; //1-100
         Solution obj;
         cout << obj.floorSqrt(n) << endl;
     }
     return 0;
 }
+//num-1 timeout-2000

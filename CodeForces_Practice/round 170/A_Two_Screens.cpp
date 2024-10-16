@@ -59,58 +59,31 @@ ll lcm(ll a,ll b) {return ((a*b)/gcd(a,b));}
 int main()
 {
     fastt;
-    int n;
-    cin>>n;
-    vs v(n);
-    for (auto &&i : v)
-    {
-        cin>>i;
-    }
-    /*
-    If you see carefully the outermost rows and column are rotated by 90 degree clockwise
-    . Then the next rows and column are rotated (90+90)degree=180 degree
-    .
-    .
-    .
-    and it continues
-    */
-    //Lets make a lambda funtion rotate
-    auto rotate=[&]()->void{
-        vs c(n,string(n,'?'));
-        for (int i = 1; i <= n; i++)
-        {
-            for (int j = 1; j <= n; j++)
-            {
-                c[j-1][n-i]=v[i-1][j-1];
-            }
-            
+    int t=1;
+    cin >> t;
+    while(t--){
+        string s,ss;
+        cin>>s;
+        cin>>ss;
+        int i=0;
+
+        while(s[i]==ss[i]){
+            if(i >= min(sz(s),sz(ss))) break;
+            i++;
         }
-        v=c;
-    };
-    
-    vector<vs> ans;
-    ans.emplace_back(v);
-    rotate();
-    ans.emplace_back(v);
-    rotate();
-    ans.emplace_back(v);
-    rotate();
-    ans.emplace_back(v);
-    for (size_t i = 1; i <= n/2; i++)
-    {
-        int cnt= i&3; //Its just i%4 to be precise
-        for (size_t j = i; j <= n+1-i; j++)
+
+        if (i>0)
         {
-            v[i-1][j-1]=ans[cnt][i-1][j-1];
-            v[j-1][i-1]=ans[cnt][j-1][i-1];
-            v[n-i][j-1]=ans[cnt][n-i][j-1];
-            v[j-1][n-i]=ans[cnt][j-1][n-i];
+            cout<<s.size()+ss.size()-i + 1<<endl;
         }
-    }
-         
-    for (auto &&i : v)
-    {
-        cout<<i<<endl;
+        else {
+            cout<<s.size()+ss.size()-i<<endl;
+        }
+        
+        // /cout<<count<<endl;
+        // if(p1>0) count++;
+        // count+=(ss.size()-p1)+(s.size()-p1);
+        // cout<<count<<endl;
     }
     return 0;
 }
