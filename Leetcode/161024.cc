@@ -1,62 +1,46 @@
 #include <bits/stdc++.h>
 using namespace std;
-// ================================== take ip/op like vector,pairs directly!==================================
-template<typename typC,typename typD> istream &operator>>(istream &cin,pair<typC,typD> &a) { return cin>>a.first>>a.second; }
-template<typename typC> istream &operator>>(istream &cin,vector<typC> &a) { for (auto &x:a) cin>>x; return cin; }
-template<typename typC,typename typD> ostream &operator<<(ostream &cout,const pair<typC,typD> &a) { return cout<<a.first<<' '<<a.second; }
-template<typename typC,typename typD> ostream &operator<<(ostream &cout,const vector<pair<typC,typD>> &a) { for (auto &x:a) cout<<x<<'\n'; return cout; }
-template<typename typC> ostream &operator<<(ostream &cout,const vector<typC> &a) { int n=a.size(); if (!n) return cout; cout<<a[0]; for (int i=1; i<n; i++) cout<<' '<<a[i]; return cout; }
-// ===================================END Of the input module ==========================================
-class Solution
-{
+
+class Solution {
 public:
-    string longestDiverseString(int a, int b, int c)
-    {
-        priority_queue<pair<int,char>> pq;
-        if(a>0){
-            pq.push({a,'a'});
-        }
-        if(b>0){
-            pq.push({b,'b'});
-        }
-        if(c>0){
-            pq.push({c,'a'});
-        }
-        string s{""};
-        while (!pq.empty())
-        {
-            /* code */
-            auto p=pq.top();
+    string longestDiverseString(int a, int b, int c) {
+        ios_base::sync_with_stdio(false);
+        cin.tie(NULL);
+        priority_queue<pair<int, char>> pq;
+        if (a > 0) pq.push({a, 'a'});
+        if (b > 0) pq.push({b, 'b'});
+        if (c > 0) pq.push({c, 'c'});
+
+        string result = "";
+
+        while (!pq.empty()) {
+
+            auto [x, y] = pq.top();
             pq.pop();
-            if(s.size()>2 and s[size(s)-1]==s[size(s)-2]==p.second){
-                if(pq.empty()) break;
-                // pair<int,char> pp=pq.top();
-                auto pp=pq.top();
+
+
+            if (result.size() >= 2 && result.back() == y && result[result.size() - 2] == y) {
+                if (pq.empty()) break;  // No valid characters left.
+
+                auto [xx, yy] = pq.top();
                 pq.pop();
-                s.push_back(pp.second);
-                pp.first--;
-                if (pp.first>0)
-                {
-                    /* code */
-                    pq.push(pp);
-                }
-                else
-                {
-                    s+=p.second;
-                    p.first--;
-                    if (p.first>0)
-                    {
-                        /* code */
-                        pq.push(p);
-                    }
-                }
+
+                result += yy;
+                xx--;
+
+                if (xx > 0) pq.push({xx, yy});
+
+                
+                pq.push({x, y});
+            } else {
+                
+                result += y;
+                x--;
+
+                if (x > 0) pq.push({x, y});
             }
         }
-        return s;
+
+        return result;
     }
 };
-int main()
-{
-    Solution o;
-    cout << o.longestDiverseString(1, 2, 2) << endl;
-}
