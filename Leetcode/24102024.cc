@@ -1,12 +1,9 @@
-/*          OM SARASWATI NAMASTUBHYAM VARDE KAMRUPINI VIDHYARAMBHAM 
-                    KARISHYAMI SIDDHIRBHAVATU MEIN SADA
-*/
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 #define  fastt       ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
 #define  ll         long long
 #define  inf        1000000000000000000
-#define  pb         push_back
+#define  pb         push
 #define  mp         make_pair
 #define  sz(a)      a.size()
 #define  mem(a,b)   memset(a,b,sizeof(a))
@@ -31,13 +28,11 @@ using namespace std;
  
 #define  vl         vector <ll>
 #define  vs         vector <string>
-#define  vc         vector <char>
-#define  vpll       vector < pair <ll, ll> >
 #define  vpsl       vector < pair <string, ll> >
 #define  vpls       vector < pair <ll, string> >
 #define  mll	    map<ll,ll>
 #define	 mset	    multiset<ll>
-#define  mcl	    map<char,ll>
+#define  msl	    map<string,ll>
 #define  pql        priority_queue<ll>
 #define  minpql     priority_queue<ll,vector<ll>,greater<ll> >
  
@@ -45,36 +40,28 @@ using namespace std;
 #define  zerobits(x)    __builtin_ctzll(x)
  
 #define toll(a) atoll(a.c_str())
-
-
-#define toll(a) atoll(a.c_str())
-string tostr(ll a) {stringstream rr;rr<<a;return rr.str();}
-ll pow(ll c,ll d){return d==0?:c*pow(c,d-1);}
-ll gcd(ll a,ll b) {return b==0? a:gcd(b,a%b);}
-ll lcm(ll a,ll b) {return ((a*b)/gcd(a,b));}
- 
-/* mpp.max_load_factor(0.25); mpp.reserve(1024); */
-/* cout << fixed << setprecision(12);*/
- 
-int main()
-{
-    ifstream f;
-    f.open("ss.txt");
-    string s;
-    f>>s;
-    f.close();
-    ofstream ff;
-    ff.open("edit.txt");
-    ff<<char(34)<<"0";
-    for (size_t i = 1; i < s.size(); i++)
-    {
-        /* code */
-        ff<<s[i];
-        if(i%1000==0){
-            ff<<char(34)<<"\n"<<char(34);
-            ff<<s[i];
+class Solution {
+public:
+    vector<string> removeSubfolders(vector<string>& f) {
+        fastt;
+        srt(f);
+        stack<string> stc;
+        stc.pb(f[0]);
+        for(auto i: f){
+            if(!stc.empty() and i==stc.top()) continue;
+            int siz=sz(stc.top());
+            if(i.substr(0,siz)!=stc.top()){
+                stc.pb(i);
+            }
+            if(i.substr(0,siz)==stc.top() and ( i[siz+1]!='/')){
+                stc.pb(i);
+            }
         }
+        clr(f);
+        while(!stc.empty()){
+            f.push_back(stc.top());
+            stc.pop();
+        }
+        return f;
     }
-    ff.close();
-    return 0;
-}
+};
