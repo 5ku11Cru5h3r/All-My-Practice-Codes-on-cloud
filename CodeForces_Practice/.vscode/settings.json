@@ -1,5 +1,13 @@
 {
     "files.associations": {
-        "random": "cpp"
+        "random": "cpp",
+        "ostream": "cpp",
+        "iostream": "cpp",
+        "iosfwd": "cpp",
+        "chrono": "cpp",
+        "span": "cpp",
+        "type_traits": "cpp",
+        "cmath": "cpp",
+        "complex": "cpp"
     }
 }
