@@ -9,6 +9,8 @@
         "vector": "cpp",
         "valarray": "cpp",
         "random": "cpp",
-        "iosfwd": "cpp"
+        "iosfwd": "cpp",
+        "unordered_map": "cpp",
+        "unordered_set": "cpp"
     }
 }

@@ -33,6 +33,7 @@ using namespace std;
 #define  vs         vector <string>
 #define  vc         vector <char>
 #define  vpll       vector < pair <ll, ll> >
+#define  pll        pair <ll, ll>
 #define  vpsl       vector < pair <string, ll> >
 #define  vpls       vector < pair <ll, string> >
 #define  mll	    map<ll,ll>
@@ -55,17 +56,46 @@ ll lcm(ll a,ll b) {return ((a*b)/gcd(a,b));}
  
 /* mpp.max_load_factor(0.25); mpp.reserve(1024); */
 /* cout << fixed << setprecision(12);*/
- 
+ // ================================== take ip/op like vector,pairs directly!==================================
+ template<typename typC,typename typD> istream &operator>>(istream &cin,pair<typC,typD> &a) { return cin>>a.first>>a.second; }
+ template<typename typC> istream &operator>>(istream &cin,vector<typC> &a) { for (auto &x:a) cin>>x; return cin; }
+ template<typename typC,typename typD> ostream &operator<<(ostream &cout,const pair<typC,typD> &a) { return cout<<a.first<<' '<<a.second; }
+ template<typename typC,typename typD> ostream &operator<<(ostream &cout,const vector<pair<typC,typD>> &a) { for (auto &x:a) cout<<x<<'\n'; return cout; }
+ template<typename typC,typename typD> ostream &operator<<(ostream &cout,const unordered_map<typC,typD> &a) { for (auto &x:a) cout<<x<<'\n'; return cout; }
+ template<typename typC> ostream &operator<<(ostream &cout,const vector<typC> &a) { int n=a.size(); if (!n) return cout; cout<<a[0]; for (int i=1; i<n; i++) cout<<' '<<a[i]; return cout; }
+ // ===================================END Of the input module ==========================================
 int main()
 {
     fastt;
     int t=1;
     cin >> t;
     while(t--){
-        int n;
-        cin >> n;
-        vl v(n);
-        for (auto i: v) cin >> i;
+        int n,k;
+        cin >> n>>k;
+        unordered_map<ll,ll> m;
+        for (size_t i = 0; i < k; i++)
+        {
+            int a,b;
+            cin>>a>>b;
+            m[a]+=b;
+        }
+        // sort(all(m),comp);
+        vl v;
+        int profit=0,c=0;
+        for (auto &&[i,j] : m)
+        {
+            v.pb(j);
+        }
+        sort(all(v),greater<>());
+        // cout<<v<<endl;
+        auto it=v.begin();
+        while(c<n and it!=v.end()){
+            profit+=*it;
+            // deb(*it);
+            it++;
+            c++;
+        }
+        cout<<profit<<endl;
     }
     return 0;
 }

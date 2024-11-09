@@ -62,10 +62,20 @@ int main()
     int t=1;
     cin >> t;
     while(t--){
-        int n;
-        cin >> n;
-        vl v(n);
-        for (auto i: v) cin >> i;
+        int n,m;
+        cin >> n>>m;
+        string s,ss;
+        cin>>s;
+        cin>>ss;
+        unordered_set<char> setc;
+        for (auto i: s) {
+            setc.insert(i);
+        }
+        for (auto &&i : ss)
+        {
+            setc.insert(i);
+        }
+        cout<<(sz(setc)!=26?"Yes":"No")<<endl;
     }
     return 0;
 }

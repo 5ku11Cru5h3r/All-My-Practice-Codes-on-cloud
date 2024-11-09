@@ -59,13 +59,18 @@ ll lcm(ll a,ll b) {return ((a*b)/gcd(a,b));}
 int main()
 {
     fastt;
-    int t=1;
-    cin >> t;
-    while(t--){
-        int n;
-        cin >> n;
-        vl v(n);
-        for (auto i: v) cin >> i;
+    ll a,b,c,d;
+    cin>>a>>b>>c>>d;
+    mll mpp;
+    mpp[a]++;
+    mpp[b]++;
+    mpp[c]++;
+    mpp[d]++;
+    int ans=0;
+    for (auto &&i : mpp)
+    {
+        ans+=i.sss/2;
     }
+    cout<<ans<<endl;
     return 0;
 }

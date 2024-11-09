@@ -62,10 +62,28 @@ int main()
     int t=1;
     cin >> t;
     while(t--){
-        int n;
+        int n,counte=0,counto=0;
         cin >> n;
-        vl v(n);
-        for (auto i: v) cin >> i;
+        for(int i=1;i<=n;i++){
+            if(n%i==0){
+                if(i%2==0) counte++;
+                else counto++;
+            }
+        }
+        if (counte>counto)
+        {
+            cout << 1 << endl;
+        }
+        else if (counte<counto)
+        {
+            cout << -1 << endl;
+        }
+        else
+        {
+            /* code */
+            cout<<0<<endl;
+        }
+        
     }
     return 0;
 }

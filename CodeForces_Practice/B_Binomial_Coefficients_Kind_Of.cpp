@@ -55,43 +55,41 @@ ll lcm(ll a,ll b) {return ((a*b)/gcd(a,b));}
  
 /* mpp.max_load_factor(0.25); mpp.reserve(1024); */
 /* cout << fixed << setprecision(12);*/
- // ================================== take ip/op like vector,pairs directly!==================================
- template<typename typC,typename typD> istream &operator>>(istream &cin,pair<typC,typD> &a) { return cin>>a.first>>a.second; }
- template<typename typC> istream &operator>>(istream &cin,vector<typC> &a) { for (auto &x:a) cin>>x; return cin; }
- template<typename typC,typename typD> ostream &operator<<(ostream &cout,const pair<typC,typD> &a) { return cout<<a.first<<' '<<a.second; }
- template<typename typC,typename typD> ostream &operator<<(ostream &cout,const vector<pair<typC,typD>> &a) { for (auto &x:a) cout<<x<<'\n'; return cout; }
- template<typename typC> ostream &operator<<(ostream &cout,const vector<typC> &a) { int n=a.size(); if (!n) return cout; cout<<a[0]; for (int i=1; i<n; i++) cout<<' '<<a[i]; return cout; }
- // ===================================END Of the input module ==========================================
+// ================================== take ip/op like vector,pairs directly!==================================
+template<typename typC,typename typD> istream &operator>>(istream &cin,pair<typC,typD> &a) { return cin>>a.first>>a.second; }
+template<typename typC> istream &operator>>(istream &cin,vector<typC> &a) { for (auto &x:a) cin>>x; return cin; }
+template<typename typC,typename typD> ostream &operator<<(ostream &cout,const pair<typC,typD> &a) { return cout<<a.first<<' '<<a.second; }
+template<typename typC,typename typD> ostream &operator<<(ostream &cout,const vector<pair<typC,typD>> &a) { for (auto &x:a) cout<<x<<'\n'; return cout; }
+template<typename typC> ostream &operator<<(ostream &cout,const vector<typC> &a) { int n=a.size(); if (!n) return cout; cout<<a[0]; for (int i=1; i<n; i++) cout<<' '<<a[i]; return cout; }
+// ===================================END Of the input module ==========================================
+
 int main()
 {
     fastt;
     int t=1;
-    cin >> t;
+    // cin >> t;
     while(t--){
-        int n;
+        int n,maxx=-1;
         cin >> n;
-        vl v(n);
-        cin>>v;
-        srt(v);
-        int last=v[0];
-        mll m;
-        for (size_t i = 1; i < n; i++)
+        vpll v(n);
+        for (auto &[i,j]: v) cin >> i;
+        for (auto &[i,j]: v) cin >> j;
+        // deb(v);
+        for (auto &[i,j] : v)
         {
-           
-           m[v[i]-last]++;
-           last=v[i];
+            maxx=max(j,maxx);
         }
-        int max_frq=0,key;
-        for (auto &&i : m)
+        vl dp(maxx+1,1);
+        for (size_t i = 1; i < maxx+1; i++)
         {
-            // deb2(i.first,i.second);
-            if (max_frq<=i.second)
-            {
-                key=i.first;
-                max_frq=i.second;
-            }
+            /* code */
+            dp[i]=(2LL*dp[i-1])%md;
         }
-        cout<<key<<endl;
+        for (auto &&[i,j] : v)
+        {
+            cout<<dp[j]<<endl;
+        }
+        
     }
     return 0;
 }

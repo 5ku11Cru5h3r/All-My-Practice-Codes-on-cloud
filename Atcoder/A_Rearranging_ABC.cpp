@@ -59,13 +59,32 @@ ll lcm(ll a,ll b) {return ((a*b)/gcd(a,b));}
 int main()
 {
     fastt;
-    int t=1;
-    cin >> t;
-    while(t--){
-        int n;
-        cin >> n;
-        vl v(n);
-        for (auto i: v) cin >> i;
+    string s;
+    cin>>s;
+    ll a=0,b=0,c=0;
+    for(ll i=0;i<s.size();i++)
+    {
+        if(s[i]=='A')
+        a++;
+        else if(s[i]=='B')
+        b++;
+        else if (s[i]=='C')
+        {
+            /* code */
+            c++;
+        }
+        
+        
     }
+    if (a*b*c==1)
+    {
+        /* code */
+        cout<<"Yes"<<endl;
+    }
+    else
+    {
+        cout<<"No"<<endl;
+    }
+    
     return 0;
 }

@@ -62,10 +62,17 @@ int main()
     int t=1;
     cin >> t;
     while(t--){
-        int n;
+        int n,ab=0,ba=0,maxgood=0,good=0;
         cin >> n;
-        vl v(n);
-        for (auto i: v) cin >> i;
+        string s;
+        cin >> s;
+        ll ans=0;
+        for (size_t i = 0; i < n; i++)
+        {
+            if(s[i]==s[0] and ans<i+1) ans=i+1;
+            if(s[i]==s[n-1] and ans<n-i) ans=n-i;
+        }
+        cout << ans << endl;
     }
     return 0;
 }

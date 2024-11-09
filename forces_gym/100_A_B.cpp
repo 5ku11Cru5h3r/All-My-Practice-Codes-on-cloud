@@ -60,12 +60,13 @@ int main()
 {
     fastt;
     int t=1;
-    cin >> t;
+    // cin >> t;
     while(t--){
-        int n;
-        cin >> n;
-        vl v(n);
-        for (auto i: v) cin >> i;
+        ll n,m;
+        cin >> n>>m;
+        cout<<n+m<<endl;
+        // vl v(n);
+        // for (auto &i: v) cin >> i;
     }
     return 0;
 }

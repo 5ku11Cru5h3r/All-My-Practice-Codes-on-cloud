@@ -55,7 +55,13 @@ ll lcm(ll a,ll b) {return ((a*b)/gcd(a,b));}
  
 /* mpp.max_load_factor(0.25); mpp.reserve(1024); */
 /* cout << fixed << setprecision(12);*/
- 
+ // ================================== take ip/op like vector,pairs directly!==================================
+ template<typename typC,typename typD> istream &operator>>(istream &cin,pair<typC,typD> &a) { return cin>>a.first>>a.second; }
+ template<typename typC> istream &operator>>(istream &cin,vector<typC> &a) { for (auto &x:a) cin>>x; return cin; }
+ template<typename typC,typename typD> ostream &operator<<(ostream &cout,const pair<typC,typD> &a) { return cout<<a.first<<' '<<a.second; }
+ template<typename typC,typename typD> ostream &operator<<(ostream &cout,const vector<pair<typC,typD>> &a) { for (auto &x:a) cout<<x<<'\n'; return cout; }
+ template<typename typC> ostream &operator<<(ostream &cout,const vector<typC> &a) { int n=a.size(); if (!n) return cout; cout<<a[0]; for (int i=1; i<n; i++) cout<<' '<<a[i]; return cout; }
+ // ===================================END Of the input module ==========================================
 int main()
 {
     fastt;
@@ -65,7 +71,17 @@ int main()
         int n;
         cin >> n;
         vl v(n);
-        for (auto i: v) cin >> i;
+        cin>>v;
+        bool flag=0;
+        for (size_t i = 1; i < n; i++)
+        {
+            /* code */
+            if(abs(v[i]-v[i-1])==5)continue;
+            else if(abs(v[i]-v[i-1])==7)continue;
+            flag=1;
+            break;
+        }
+        cout<<(flag?"NO":"YES")<<endl;
     }
     return 0;
 }

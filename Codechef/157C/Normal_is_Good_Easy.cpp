@@ -56,16 +56,55 @@ ll lcm(ll a,ll b) {return ((a*b)/gcd(a,b));}
 /* mpp.max_load_factor(0.25); mpp.reserve(1024); */
 /* cout << fixed << setprecision(12);*/
  
-int main()
-{
-    fastt;
-    int t=1;
-    cin >> t;
-    while(t--){
-        int n;
-        cin >> n;
-        vl v(n);
-        for (auto i: v) cin >> i;
+ // ================================== take ip/op like vector,pairs directly!==================================
+ template<typename typC,typename typD> istream &operator>>(istream &cin,pair<typC,typD> &a) { return cin>>a.first>>a.second; }
+ template<typename typC> istream &operator>>(istream &cin,vector<typC> &a) { for (auto &x:a) cin>>x; return cin; }
+ template<typename typC,typename typD> ostream &operator<<(ostream &cout,const pair<typC,typD> &a) { return cout<<a.first<<' '<<a.second; }
+ template<typename typC,typename typD> ostream &operator<<(ostream &cout,const vector<pair<typC,typD>> &a) { for (auto &x:a) cout<<x<<'\n'; return cout; }
+ template<typename typC> ostream &operator<<(ostream &cout,const vector<typC> &a) { ll n=a.size(); if (!n) return cout; cout<<a[0]; for (ll i=1; i<n; i++) cout<<' '<<a[i]; return cout; }
+ // ===================================END Of the input module ==========================================
+
+vector<ll> countIdenticalSubarrays(const vector<ll>& arr) {
+    vector<ll> result;
+    if (arr.empty()) return result;
+
+    ll currentCount = 1;
+
+    // Iterate through the array to group identical elements.
+    for (size_t i = 1; i < arr.size(); ++i) {
+        if (arr[i] == arr[i - 1]) {
+            currentCount++;
+        } else {
+            result.push_back(currentCount);
+            currentCount = 1; // Reset the count for a new group
+        }
     }
+
+    // Append the last counted group.
+    result.push_back(currentCount);
+
+    return result;
+}
+
+// Example usage:
+ll main() {
+    ll t;
+    cin>>t;
+    while (t--)
+    {
+        /* code */
+        ll n;
+        cin>>n;
+        vl v(n);
+        cin>>v;
+        vl arr=countIdenticalSubarrays(v);
+        ll sum{0};
+        for (auto &&i : arr)
+        {
+            sum+=(i*(i+1))/2;
+        }
+        cout<<sum<<endl;
+    }
+    
     return 0;
 }

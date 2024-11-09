@@ -64,8 +64,23 @@ int main()
     while(t--){
         int n;
         cin >> n;
-        vl v(n);
-        for (auto i: v) cin >> i;
+        int count0=0,count1=0;
+        for (size_t i = 0; i < 2*n; i++)
+        {
+            /* code */
+            int x;
+            cin >> x;
+            if(x==1) count1++;
+            else count0++;
+        }
+        int x=0,y=0;
+        if(count1%2){
+            x=1;
+        }
+        if(count1<n) y=count1;
+        else y=count0;
+        // deb2(count0,count1);
+        cout<<x<<' '<<y<<endl;
     }
     return 0;
 }

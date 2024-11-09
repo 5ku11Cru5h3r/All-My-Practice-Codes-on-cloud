@@ -37,6 +37,7 @@ using namespace std;
 #define  vpls       vector < pair <ll, string> >
 #define  mll	    map<ll,ll>
 #define	 mset	    multiset<ll>
+#define	 uset	    unordered_set<ll>
 #define  mcl	    map<char,ll>
 #define  pql        priority_queue<ll>
 #define  minpql     priority_queue<ll,vector<ll>,greater<ll> >
@@ -55,7 +56,13 @@ ll lcm(ll a,ll b) {return ((a*b)/gcd(a,b));}
  
 /* mpp.max_load_factor(0.25); mpp.reserve(1024); */
 /* cout << fixed << setprecision(12);*/
- 
+ // ================================== take ip/op like vector,pairs directly!==================================
+ template<typename typC,typename typD> istream &operator>>(istream &cin,pair<typC,typD> &a) { return cin>>a.first>>a.second; }
+ template<typename typC> istream &operator>>(istream &cin,vector<typC> &a) { for (auto &x:a) cin>>x; return cin; }
+ template<typename typC,typename typD> ostream &operator<<(ostream &cout,const pair<typC,typD> &a) { return cout<<a.first<<' '<<a.second; }
+ template<typename typC,typename typD> ostream &operator<<(ostream &cout,const vector<pair<typC,typD>> &a) { for (auto &x:a) cout<<x<<'\n'; return cout; }
+ template<typename typC> ostream &operator<<(ostream &cout,const vector<typC> &a) { int n=a.size(); if (!n) return cout; cout<<a[0]; for (int i=1; i<n; i++) cout<<' '<<a[i]; return cout; }
+ // ===================================END Of the input module ==========================================
 int main()
 {
     fastt;
@@ -64,8 +71,20 @@ int main()
     while(t--){
         int n;
         cin >> n;
-        vl v(n);
-        for (auto i: v) cin >> i;
+        uset us;
+        for (size_t i = 0; i < n; i++)
+        {
+            int x;
+            cin >> x;
+            if(us.count(x)){
+                us.erase(x);
+                x*=2;
+            }
+            us.insert(x);
+            cout<<sz(us)<<" ";
+        }
+        cout<<endl;        
+
     }
     return 0;
 }

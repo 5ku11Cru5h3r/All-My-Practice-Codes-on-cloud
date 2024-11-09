@@ -1,101 +1,93 @@
-//{ Driver Code Starts
+
 #include <bits/stdc++.h>
 using namespace std;
 
-// ================================== take ip/op like vector,pairs directly!==================================
-template<typename typC,typename typD> istream &operator>>(istream &cin,pair<typC,typD> &a) { return cin>>a.first>>a.second; }
-template<typename typC> istream &operator>>(istream &cin,vector<typC> &a) { for (auto &x:a) cin>>x; return cin; }
-template<typename typC,typename typD> ostream &operator<<(ostream &cout,const pair<typC,typD> &a) { return cout<<a.first<<' '<<a.second; }
-template<typename typC,typename typD> ostream &operator<<(ostream &cout,const vector<pair<typC,typD>> &a) { for (auto &x:a) cout<<x<<'\n'; return cout; }
-template<typename typC> ostream &operator<<(ostream &cout,const vector<typC> &a) { int n=a.size(); if (!n) return cout; cout<<a[0]; for (int i=1; i<n; i++) cout<<' '<<a[i]; return cout; }
-// ===================================END Of the input module ==========================================
-// } Driver Code Ends
-class AutoCompleteSystem {
-    vector<pair<string , int >> m;
-  public:
+#define ALPHABET_SIZE (26)
+#define CHAR_TO_INDEX(c) ((int)c - (int)'a')
 
-    AutoCompleteSystem(vector<string>& s, vector<int>& t) {
-        // write code for constructor
-        for (size_t i = 0; i < s.size(); i++)
-        {
-            m.push_back({s[i],t[i]});
-        }
-        sort(m.rbegin(),m.rend());
-    }
-
-    vector<string> input(char c) {
-        // write code to return the top 3 suggestions when the current character in the
-        // stream is c c == '#' means , the current query is complete and you may save
-        // the entire query into historical data
-        vector<string> v;
-        int count{0};
-        for (size_t i = 0; i < m.size(); i++)
-        {
-            /* code */
-            if(count>2)break;
-            if (m[i].first[0]==c)
-            {
-                /* code */
-                v.push_back(m[i].first);
-            }
-            else if (m[i].first[0]<c)
-            {
-                break;
-            }   
-        }
-        
-        return v;
-    }
+struct TrieNode {
+	struct TrieNode* children[ALPHABET_SIZE];
+	bool isWordEnd;
 };
+struct TrieNode* getNode(void)
+{
+	struct TrieNode* pNode = new TrieNode;
+	pNode->isWordEnd = false;
 
-/**
- * Your AutoCompleteSystem object will be instantiated and called as such:
- * AutoCompleteSystem* obj = new AutoCompleteSystem(sentences, times);
- * vector<string> param_1 = obj->input(c);
- */
+	for (int i = 0; i < ALPHABET_SIZE; i++)
+		pNode->children[i] = NULL;
 
+	return pNode;
+}
+void insert(struct TrieNode* root, const string key)
+{
+	struct TrieNode* pCrawl = root;
 
-//{ Driver Code Starts.
+	for (int level = 0; level < key.length(); level++) {
+		int index = CHAR_TO_INDEX(key[level]);
+		if (!pCrawl->children[index])
+			pCrawl->children[index] = getNode();
 
-int main() {
-
-    int t;
-    cin >> t;
-    cin.ignore();
-    while (t--) {
-        int n;
-        cin >> n;
-        cin.ignore();
-        vector<string> sentences(n);
-        vector<int> times(n);
-        for (int i = 0; i < n; ++i) {
-
-            getline(cin, sentences[i]);
-            cin >> times[i];
-            cin.ignore();
-        }
-        AutoCompleteSystem *obj = new AutoCompleteSystem(sentences, times);
-        int q;
-        cin >> q;
-        cin.ignore();
-
-        for (int i = 0; i < q; ++i) {
-            string query;
-            getline(cin, query);
-            string qq = "";
-            for (auto &x : query) {
-                qq += x;
-                vector<string> suggestions = obj->input(x);
-                if (x == '#')
-                    continue;
-                cout << "Typed : \"" << qq << "\" , Suggestions: \n";
-                for (auto &y : suggestions) {
-                    cout << y << "\n";
-                }
-            }
-        }
-    }
-    return 0;
+		pCrawl = pCrawl->children[index];
+	}
+    pCrawl->isWordEnd = true;
+}
+bool isLastNode(struct TrieNode* root)
+{
+	for (int i = 0; i < ALPHABET_SIZE; i++)
+		if (root->children[i])
+			return 0;
+	return 1;
 }
 
-// } Driver Code Ends
+void suggestionsRec(struct TrieNode* root,
+					string currPrefix)
+{
+	if (root->isWordEnd)
+		cout << currPrefix << endl;
+	for (int i = 0; i < ALPHABET_SIZE; i++)
+		if (root->children[i]) {
+			char child = 'a' + i;
+			suggestionsRec(root->children[i],
+						currPrefix + child);
+		}
+}
+int printAutoSuggestions(TrieNode* root, const string query)
+{
+	struct TrieNode* pCrawl = root;
+	for (char c : query) {
+		int ind = CHAR_TO_INDEX(c);
+		if (!pCrawl->children[ind])
+			return 0;
+
+		pCrawl = pCrawl->children[ind];
+	}
+	if (isLastNode(pCrawl)) {
+		cout << query << endl;
+		return -1;
+	}
+	suggestionsRec(pCrawl, query);
+	return 1;
+}
+int main()
+{
+	struct TrieNode* root = getNode();
+	insert(root, "hello");
+	insert(root, "dog");
+	insert(root, "hell");
+	insert(root, "cat");
+	insert(root, "a");
+	insert(root, "hel");
+	insert(root, "help");
+	insert(root, "helps");
+	insert(root, "helping");
+	int comp = printAutoSuggestions(root, "hel");
+
+	if (comp == -1)
+		cout << "No other strings found with this prefix\n";
+
+	else if (comp == 0)
+		cout << "No string found with this prefix\n";
+
+	return 0;
+}

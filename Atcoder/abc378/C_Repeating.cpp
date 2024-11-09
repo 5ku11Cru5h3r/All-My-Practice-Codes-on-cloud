@@ -60,12 +60,31 @@ int main()
 {
     fastt;
     int t=1;
-    cin >> t;
+    // cin >> t;
     while(t--){
         int n;
         cin >> n;
-        vl v(n);
-        for (auto i: v) cin >> i;
+        vl ans(n);
+        // for (auto i: v) cin >> i;
+        map<ll,stack<ll>> mpp;
+        for (size_t i = 0; i < n; i++)
+        {
+            /* code */
+            ll x;
+            cin>>x;
+            if(mpp[x].empty()){
+                ans[i]=-1;
+            }
+            else{
+                ans[i]=mpp[x].top();
+            }
+            mpp[x].push(i+1);
+        }
+        for (auto &&i : ans)
+        {
+            cout<<i<<" ";
+        }
+        
     }
     return 0;
 }
