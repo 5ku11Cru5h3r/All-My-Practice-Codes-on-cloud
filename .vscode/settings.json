@@ -76,6 +76,7 @@
     "stacktrace": "cpp",
     "regex": "cpp",
     "valarray": "cpp",
-    "bitset": "cpp"
+    "bitset": "cpp",
+    "iostream": "cpp"
   }
 }
